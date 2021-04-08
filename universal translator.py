@@ -110,9 +110,36 @@ def vigenere_cipher():
 
 
 def binary_encoder():
-    string = 'im not a noob'
+    string = 
     string = string.upper()
     reverse_mode = 0
+    output = ''
+    for x in string:
+        asci = ord(x)
+        binval = bin(asci)
+        binval = binval.replace('0b','')
+        chars = len(binval)
+        while chars != 8:
+            binval = '0' + binval  #adds 0 to output
+            chars = len(binval)
+            print(chars)  #the length of character
+        output = output + str(binval)
+    print(output)
+    if reverse_mode == 1:
+        output = 0 if output else 1
+    else:
+        pass
+    if len(output) % 8 == 0:
+        print('sucess')
+    else:
+        pass
+    x = 8
+    conv = [output[i: i + x] for i in range(0, len(output), x)]
+    for y in conv:
+        print(y)
+
+def base32_encode():
+    string = 'BIEBER SUCKS'
     output = ''
     for x in string:
         asci = ord(x)
@@ -129,10 +156,32 @@ def binary_encoder():
         print('sucess')
     else:
         pass
-    x = 8
+    x = 5
+    outputforrealz = ''
+    outputforrealzrealz = ''
     conv = [output[i: i + x] for i in range(0, len(output), x)]
     for y in conv:
         print(y)
+        charcount = len(y)
+        print(charcount)
+        y = '000' + y
+        charcount = len(y)
+        print(y)
+        print(charcount)
+        outputforrealz = outputforrealz + y
+        x = 8
+        conv = [output[i: i + x] for i in range(0, len(output), x)]
+        for y in conv:
+            add = '0b' + y
+            isint = int(add, 2)
+            char = chr(isint)
+            outputforrealzrealz = outputforrealzrealz + char
+            
+    print(outputforrealzrealz)
+    
+        
+
+        
 
 #decoders
 #still blank :(
