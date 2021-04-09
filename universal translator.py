@@ -153,18 +153,17 @@ def vigenere_cipher(string, keyword):
     encode()
 
 
-def binary_encoder(bin):
+def binary_encoder(word):
     output = ''
-    for x in bin:
-        asci = ord(x)
-        binval = bin(asci)
-        binval = binval.replace('0b','')
+    for x in word:
+        binval = bin(ord(x))[2:]
         chars = len(binval)
         while chars != 8:
             binval = '0' + binval  #adds 0 to output
             chars = len(binval)
         output = output + str(binval)
     print(output)
+
 def split(word):
             out = [char for char in word]
             return out
