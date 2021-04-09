@@ -16,9 +16,6 @@ for x in os.listdir():
 now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 
-#encoder yn
-print('Selected Encoder')
-    
 #encoders
 def encode_base64(msg):
     #msg must be your input
@@ -26,19 +23,21 @@ def encode_base64(msg):
     message_bytes = message.encode('ascii')
     base64_bytes = base64.b64encode(message_bytes)
     base64_message = base64_bytes.decode('ascii')
+    print(base64_message)
+    encode()
 
-def encode_rot13():
+def encode_rot13(s):
     #s must be your input
     d = {}
     for c in (65, 97):
         for i in range(26):
             d[chr(i+c)] = chr((i+13) % 26 + c)
     print("".join([d.get(c, c) for c in s]))
+    encode()
 
-def encode_caesar_cipher():
-    word = 'BIEBER SUCKS'
-    shift = 3
+def encode_caesar_cipher(word, shiftc):
     new = ''
+    shiftc = shift
     for x in word:
         up = x.upper()
         if up == ' ':
@@ -53,11 +52,9 @@ def encode_caesar_cipher():
             chrshifted = chr(shifted)
             new = new + str(chrshifted)
     print(new)
+    encode()
 
-def encode_affine():
-    word = 'noob'
-    val1 = 5
-    val2 = 8
+def encode_affine(word, val1, val2):
     new = ''
     for x in word:
         ordn = ord(x)
@@ -68,6 +65,7 @@ def encode_affine():
         outref = chr(modref)
         new  = new + outref
     print(new)
+    encode()
 
 #start of vigenere cipher
 def cipherText(string, key):
@@ -97,24 +95,21 @@ def originalText(cipher_text, key):
         x += ord('A')
         orig_text.append(chr(x))
     return("" . join(orig_text))
+    
 #end of vigenere cipher     
 
-def vigenere_cipher():
-    string = "GEEKSFORGEEKS"
-    keyword = "AYUSH"
+def vigenere_cipher(string, keyword):
     key = generateKey(string, keyword)
     cipher_text = cipherText(string,key)
     print("Ciphertext :", cipher_text)
     print("Original/Decrypted Text :", 
            originalText(cipher_text, key))
+    encode()
 
 
-def binary_encoder():
-    string = 
-    string = string.upper()
-    reverse_mode = 0
+def binary_encoder(bin):
     output = ''
-    for x in string:
+    for x in bin:
         asci = ord(x)
         binval = bin(asci)
         binval = binval.replace('0b','')
@@ -122,73 +117,65 @@ def binary_encoder():
         while chars != 8:
             binval = '0' + binval  #adds 0 to output
             chars = len(binval)
-            print(chars)  #the length of character
         output = output + str(binval)
     print(output)
-    if reverse_mode == 1:
-        output = 0 if output else 1
-    else:
-        pass
-    if len(output) % 8 == 0:
-        print('sucess')
-    else:
-        pass
-    x = 8
-    conv = [output[i: i + x] for i in range(0, len(output), x)]
-    for y in conv:
-        print(y)
-
-def base32_encode():
-    string = 'BIEBER SUCKS'
-    output = ''
-    for x in string:
-        asci = ord(x)
-        binval = bin(asci)
-        binval = binval.replace('0b','')
-        chars = len(binval)
-        while chars != 8:
-            binval = '0' + binval  #adds 0 to output
-            chars = len(binval)
-            print(chars)  #the length of character
-        output = output + str(binval)
-    print(output)
-    if len(output) % 8 == 0:
-        print('sucess')
-    else:
-        pass
-    x = 5
-    outputforrealz = ''
-    outputforrealzrealz = ''
-    conv = [output[i: i + x] for i in range(0, len(output), x)]
-    for y in conv:
-        print(y)
-        charcount = len(y)
-        print(charcount)
-        y = '000' + y
-        charcount = len(y)
-        print(y)
-        print(charcount)
-        outputforrealz = outputforrealz + y
-        x = 8
-        conv = [output[i: i + x] for i in range(0, len(output), x)]
-        for y in conv:
-            add = '0b' + y
-            isint = int(add, 2)
-            char = chr(isint)
-            outputforrealzrealz = outputforrealzrealz + char
-            
-    print(outputforrealzrealz)
-    
-        
-
-        
 
 #decoders
 #still blank :(
-"""
+
+
+#e/d
+def encode():
+    print('Entered encode mode.')
+    print('Press "x" to go back, or:')
+    print("""
+    0 - base64
+    1 - rot13
+    2 - caesar cipher
+    3 - affine cipher
+    4 - vigenere cipher
+    5 - binary
+    """)
+    print('This time, confirm your answer by pressing Enter.')
+    user = input()
+    if user == '0':
+        encode_base64(input('Base64 Message: '))
+    elif user == '1':
+        encode_rot13(input('Rot13 Message: '))
+    elif user == '2':
+        encode_caesar_cipher(input('Caesar Cipher Message: '), input('Shifts: '))
+    elif user == '3':
+        affine_cipher(input('Affine Cipher Message: '), input('Key 1: '), input('Key 2:'))
+    elif user == '4':
+        vigenere_cipher(input('Vigenere Cipher Message: '), input('Key: '))
+    elif user == '5':
+        binary_encoder(input('Binary Message: '))
+    elif user == 'x':
+        restart()
+    
+    else:
+        print('not from 1 - 5')
+        restart()
+
+def decode():
+    print('Decode mode is unavailable yet. Sorry! We are restarting for you.')
+    restart()
 #the script
 print('Universal Cryptography Translator')
-print('Encode or Decode?')
-ed = input('Y/N')
-#if ed == 'y' or 'Y':
-"""
+def restart():
+    print('Encode or Decode? [y/n]')
+    print('Press a key.')
+    import keyboard  # using module keyboard
+    while True:
+        try:  
+            if keyboard.is_pressed('y'):
+                encode()
+                break
+            elif keyboard.is_pressed('n'):
+                decode()
+                break
+        except:
+            break
+restart()
+
+
