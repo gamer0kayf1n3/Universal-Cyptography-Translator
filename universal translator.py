@@ -3,6 +3,52 @@ import os
 import base64
 from datetime import datetime
 
+morse_dictionary = {
+    'T':'-',
+    'E':'.',
+    'M':'--',
+    'N':'-.',
+    'I':'..',
+    'A':'.-',
+    'O':'---',
+    'G':'--.',
+    'K':'-.-',
+    'D':'-..',
+    'W':'.--',
+    'R':'.-.',
+    'U':'..-',
+    'S':'...',
+    'Q':'--.-',
+    'Z':'--..',
+    'Y':'-.--',
+    'C':'-.-.',
+    'X':'-..-',
+    'B':'-...',
+    'J':'.---',
+    'P':'.--.',
+    'L':'.-..',
+    'F':'..-.',
+    'V':'...-',
+    'H':'....',
+    '0':'-----',
+    '9':'----.',
+    '8':'---..',
+    '7':'--...',
+    '6':'-....',
+    '5':'.....',
+    '4':'....-',
+    '3':'...--',
+    '2':'..---',
+    '1':'.----',
+    '.':'.-.-.-',
+    '?':'..--..',
+    ',':'--..--',
+    '(':'-.--.',
+    ')':'-.--.-',
+    '!':'-.-.--',
+    '-':'-....-',
+    ' ':'/',
+    }
 #find path
 """
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -119,7 +165,20 @@ def binary_encoder(bin):
             chars = len(binval)
         output = output + str(binval)
     print(output)
-
+def split(word):
+            out = [char for char in word]
+            return out
+def morse_encoder(inp):
+    try:
+        output = ''
+        word = inp
+        for x in split(word.upper()):
+            get = morse_dictionary[x]
+            output = output + ' ' + get + ' '
+        print(output)
+    except:
+        print('Error')
+   
 #decoders
 #still blank :(
 
@@ -135,6 +194,7 @@ def encode():
     3 - affine cipher
     4 - vigenere cipher
     5 - binary
+    6 - morse
     """)
     print('This time, confirm your answer by pressing Enter.')
     user = input()
@@ -150,6 +210,8 @@ def encode():
         vigenere_cipher(input('Vigenere Cipher Message: '), input('Key: '))
     elif user == '5':
         binary_encoder(input('Binary Message: '))
+    elif user == '6':
+        morse_encoder(input('Morse: '))
     elif user == 'x':
         restart()
     
