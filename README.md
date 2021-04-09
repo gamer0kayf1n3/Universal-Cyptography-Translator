@@ -12,6 +12,7 @@ I just noticed, Markdown in Github is [**cool**](https://www.youtube.com/watch?v
 - [x] Vigenere Cipher Encode
 - [x] Binary Encode
 - [ ] Base32 Encode
+- [x] Morse Code
 - [ ] Hashing
 - [ ] AES - 128 Encode
 - [ ] AES - 256 Encode
